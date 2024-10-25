@@ -1,0 +1,52 @@
+{
+    "job": {
+        "content": [
+            {
+                "reader": {
+                    "name": "dorisreader",
+                    "parameter": {
+                        "column": ["id","order_code","line_code","remark","unit_no","unit_name","price"],
+                        "connection": [
+                            {
+                                "jdbcUrl": ["jdbc:mysql://10.16.10.6:9133/demo_sxh"],
+                                "table": ["ods_sxh_test"]
+                            }
+                        ],
+                        "username": "root",
+                        "password": "qwer1234",
+                        "where": ""
+                    }
+                },
+                "writer": {
+                    "name": "doriswriter",
+                    "parameter": {
+                        "loadUrl": ["10.16.10.6:8133"],
+                        "column": ["id","order_code","line_code","remark","unit_no","unit_name","price"],
+                        "username": "root",
+                        "password": "qwer1234",
+                        "postSql": ["select count(1) from sxh_test"],
+                        "preSql": [],
+                        "flushInterval":30000,
+                        "connection": [
+                          {
+                            "jdbcUrl": "jdbc:mysql://10.16.10.6:9133/demo_sxh",
+                            "selectedDatabase": "demo_sxh",
+                            "table": ["sxh_test"]
+                          }
+                        ],
+                        "loadProps": {
+                            "format": "json",
+                            "strip_outer_array":"true",
+                            "line_delimiter": "\\x02"
+                        }
+                    }
+                }
+            }
+        ],
+        "setting": {
+            "speed": {
+                "channel": "1"
+            }
+        }
+    }
+}
